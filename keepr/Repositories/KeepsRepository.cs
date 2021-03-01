@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -69,7 +70,28 @@ namespace keepr.Repositories
       _db.Execute(sql, new { id });
     }
 
+    internal IEnumerable<Keep> GetKeepsByVaultId(int vaultId)
+    {
+      string sql = @"
+      select keep.*,
+      vk.id as VaultKeepId
+      FROM vaultkeeps vk
+      JOIN keeps keep on keep.id = vk.keepId
+      WHERE vaultId = @VaultId";
+      return _db.Query<VaultKeepViewModel>(sql, new { vaultId });
 
+    }
 
+    internal IEnumerable<Keep> GetKeepsByProfileId(string profileId)
+    {
+      string sql = @"
+      select keep.*,
+      prof.id as ProfileId
+      FROM profiles prof
+      JOIN keeps keep on keep.creatorId = prof.id
+      WHERE creatorId = @ProfileId";
+      return _db.Query<ProfileKeepViewModel>(sql, new { profileId });
+
+    }
   }
 }

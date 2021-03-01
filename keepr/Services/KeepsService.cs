@@ -8,9 +8,14 @@ namespace keepr.Services
   public class KeepsService
   {
     private readonly KeepsRepository _krepo;
-    public KeepsService(KeepsRepository krepo)
+    private readonly VaultsRepository _vrepo;
+    private readonly ProfilesRepository _prepo;
+    
+    public KeepsService(KeepsRepository krepo, VaultsRepository vrepo, ProfilesRepository prepo)
     {
       _krepo = krepo;
+      _vrepo = vrepo;
+      _prepo = prepo;
     }
     public IEnumerable<Keep> GetAll()
     {
@@ -44,12 +49,16 @@ namespace keepr.Services
         editData.Img = editData != null ? editData.Img : Original.Img;
       }else
       {
+
         editData.Views = editData.Views != 0 ? Original.Views++ : Original.Views;
         editData.Keeps = editData.Keeps != 0 ? Original.Keeps++ : Original.Keeps;
+       throw new Exception("Access Denied");
+
       }
       return _krepo.edit(editData);
 
     }
+
 
     internal string Delete(int id, string userId)
     {
@@ -60,6 +69,25 @@ namespace keepr.Services
       }
       _krepo.Delete(id);
       return "Successfully Deleted";
+    }
+
+    internal IEnumerable<Keep> GetKeepsByVaultId(int vaultId)
+    {
+      Vault exists = _vrepo.GetById(vaultId);
+      if(exists == null)
+      {
+        throw new Exception("Invalid Id");
+      }
+      return _krepo.GetKeepsByVaultId(vaultId);
+    }
+    internal IEnumerable<Keep> GetKeepsByProfileId(string profileId)
+    {
+      Profile exists = _prepo.GetById(profileId);
+      if(exists == null)
+      {
+        throw new Exception("Invalid Id");
+      }
+      return _krepo.GetKeepsByProfileId(profileId);
     }
   }
 }

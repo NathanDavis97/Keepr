@@ -59,13 +59,15 @@ namespace keepr
       // TODO Transient Repositories
       services.AddTransient<KeepsRepository>();
       services.AddTransient<ProfilesRepository>();
-      // services.AddTransient<Repository>();
+      services.AddTransient<VaultsRepository>();
+      services.AddTransient<VaultKeepsRepository>();
 
 
     //   // TODO Transient Services
       services.AddTransient<KeepsService>();
       services.AddTransient<ProfilesService>();
-      // services.AddTransient<Service>();
+      services.AddTransient<VaultsService>();
+      services.AddTransient<VaultKeepsService>();
 
 
             services.AddControllers();
