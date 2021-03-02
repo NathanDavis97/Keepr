@@ -1,25 +1,37 @@
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo">
-    <h1 class="my-5 bg-dark text-light p-3 rounded d-flex align-items-center">
-      <span class="mx-2 text-white">Vue 3 Starter</span>
-    </h1>
+  <div class="container-fluid">
+    <div class="component row">
+      <div class="card-columns mt-3">
+        <KeepComponent v-for="keep in state.keeps" :key="keep.id" :keep-prop="keep" />
+      </div>
+    </div>
+    <QuickModal1 />
   </div>
 </template>
 
 <script>
+import { onMounted, reactive, computed } from 'vue'
+import { keepService } from '../services/KeepService'
+import { AppState } from '../AppState'
+
 export default {
-  name: 'Home'
+  name: 'Component',
+  setup() {
+    const state = reactive({
+      keeps: computed(() => AppState.keeps)
+    })
+    onMounted(() => keepService.getKeeps())
+    return { state }
+  },
+  components: {}
 }
 </script>
 
-<style scoped lang="scss">
-.home{
-  text-align: center;
-  user-select: none;
-  > img{
-    height: 200px;
-    width: 200px;
+<style
+    QuickModal1 lang="scss" scoped>
+.card-columns {
+    column-count: 4;
+
   }
-}
+
 </style>
