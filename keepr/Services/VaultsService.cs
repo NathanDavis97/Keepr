@@ -45,7 +45,6 @@ namespace keepr.Services
       if(Original.CreatorId == profileId)
       {
         editData.Name = editData != null ? editData.Name: Original.Name ;
-        editData.Description = editData != null ? editData.Description : Original.Description;
         editData.IsPrivate= editData != null ? editData.IsPrivate : Original.IsPrivate;
         return _vrepo.edit(editData);
       } else throw new Exception("Access Denied");
