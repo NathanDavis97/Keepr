@@ -1,5 +1,5 @@
 <template>
-  <div v-if="keepProp.creator" class="container-fluid" @click="showModal">
+  <div class="container-fluid" @click="showModal">
     <div class="keepComponent col ">
       <div class="card img-fluid">
         <img :src="keepProp.img" alt="" class="card-img rounded">
@@ -8,7 +8,7 @@
             <div class="row justify-content-between">
               <h5 class="col bigfont">
                 <div>{{ keepProp.name }}</div>
-                <img :src="keepProp.creator.picture" class="iconsize rounded " alt="">
+                <img v-if="keepProp.creator" :src="keepProp.creator.picture" class="iconsize rounded " alt="">
               </h5>
             </div>
           </div>

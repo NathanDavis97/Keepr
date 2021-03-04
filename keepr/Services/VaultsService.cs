@@ -61,7 +61,7 @@ namespace keepr.Services
       return "Successfully Deleted";
     }
 
-    internal IEnumerable<Vault> GetVaultsByProfileId(string profileId)
+    internal IEnumerable<Vault> GetVaultsByProfileId(string profileId, string userId)
     {
       Profile exists = _prepo.GetById(profileId);
       if(exists == null)
@@ -69,6 +69,8 @@ namespace keepr.Services
         throw new Exception("Invalid Id");
       }
       var results =_vrepo.GetVaultsByProfileId(profileId);
+      if (userId == profileId)
+      { return results; }
       return results.ToList().FindAll(r => r.IsPrivate == false);
     }
     }

@@ -7,7 +7,7 @@
       <div class="col-3">
         <h1>{{ account.name }}</h1>
         <small class="row">{{ state.vaults.length }} Vaults</small>
-        <small class="row">{{ state.keeps.length }} Keeps</small>
+        <small class="row">{{ state.myKeeps.length }} Keeps</small>
       </div>
     </div>
     <div class="row">
@@ -38,7 +38,7 @@
         </div>
         <div class="row">
           <div class="card-columns mt-3">
-            <KeepComponent v-for="keep in state.keeps" :key="keep.id" :keep-prop="keep" />
+            <KeepComponent v-for="keep in state.myKeeps" :key="keep.id" :keep-prop="keep" />
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@ export default {
   setup() {
     const state = reactive({
       account: computed(() => AppState.account),
-      keeps: computed(() => AppState.myKeeps),
+      myKeeps: computed(() => AppState.myKeeps),
       vaults: computed(() => AppState.vaults)
     })
     onMounted(async() => {

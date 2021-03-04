@@ -5,7 +5,7 @@ const { api } = require('./AxiosService')
 class VaultService {
   async getVaults() {
     const res = await api.get('profiles/' + AppState.account.id + '/vaults')
-    logger.log(AppState.account, 'account')
+    logger.log(res.data, 'vaults')
     AppState.vaults = res.data
   }
 
