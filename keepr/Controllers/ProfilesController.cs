@@ -52,7 +52,10 @@ namespace keepr.Controllers
      {
        try
        {Profile userInfo = await HttpContext.GetUserInfoAsync<Profile>();
-        return Ok(_vservice.GetVaultsByProfileId(profileId, userInfo.Id));
+       string stringId = "";
+        if (userInfo == null) { stringId = "0"; }
+        else stringId = userInfo.Id;
+        return Ok(_vservice.GetVaultsByProfileId(profileId, stringId));
       }
        catch (System.Exception e)
        {

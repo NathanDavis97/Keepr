@@ -1,25 +1,29 @@
 <template>
-  <div class="container-fluid">
-    <div class="vaultComponent col ">
-      <div class="card img-fluid">
-        <img :src="vaultProp.img" alt="" class="card-img rounded">
-        <div class="card-img-overlay align-items-end row nomargpad ">
-          <div class="vaulttext col d-flex align-items-end pb-1 rounded justify-content-between ">
-            <div class="row justify-content-between">
-              <h5 class="col bigfont">
-                <div>{{ vaultProp.name }}</div>
-              </h5>
+  <div class="container-fluid  mt-2" @click="getActiveVault(vaultProp.id)">
+    <router-link :to="{name: 'ActiveVault', params: {id: state.thisvault.id}} ">
+      <div class="vaultComponent col ">
+        <div class="card img-fluid size">
+          <img :src="vaultProp.img" alt="" class="card-img rounded">
+          <div class="  card-img-overlay align-items-end row nomargpad ">
+            <div class="vaulttext col d-flex align-items-end pb-1 rounded justify-content-between ">
+              <div class="row justify-content-between">
+                <h5 class="col bigfont">
+                  <div>{{ vaultProp.name }}</div>
+                </h5>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 
 <script>
 import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
+import { vaultService } from '../services/VaultService'
+import { logger } from '../utils/Logger'
 
 export default {
   name: 'VaultComponent',
@@ -32,7 +36,14 @@ export default {
 
     return {
       state,
-      props
+      props,
+      async getActiveVault(id) {
+        try {
+          await vaultService.getVaultById(id)
+        } catch (error) {
+          logger.log(error)
+        }
+      }
     }
   },
   components: {}
@@ -51,6 +62,12 @@ background: linear-gradient(360deg, rgb(0, 0, 0) 0%, rgba(255, 255, 255, 0) 100%
 min-height: 30%;
 min-width: 100%;
 }
+.size{
+    min-height: 200px;
+    background: grey
+    ;
+
+}
 .bigfont{
   font-size: 30px;
 }
@@ -58,4 +75,5 @@ min-width: 100%;
   height: 30px;
   margin-top: 2px;
 }
+
 </style>

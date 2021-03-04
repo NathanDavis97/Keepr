@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid">
     <div class="component row">
-      <div class="card-columns mt-3">
-        <KeepComponent v-for="keep in state.keeps" :key="keep.id" :keep-prop="keep" @click="getVaults" />
+      <div class="card-columns mt-3" @click="getVaultsFirst">
+        <KeepComponent v-for="keep in state.keeps" :key="keep.id" :keep-prop="keep" />
       </div>
     </div>
   </div>
@@ -21,7 +21,8 @@ export default {
     const state = reactive({
       keeps: computed(() => AppState.keeps),
       account: computed(() => AppState.account),
-      myKeeps: computed(() => AppState.myKeeps)
+      myKeeps: computed(() => AppState.myKeeps),
+      myVaults: computed(() => AppState.myVaults)
     })
     onMounted(async() => {
       try {
@@ -33,18 +34,12 @@ export default {
 
     return {
       state,
-      async getVaults() {
-        try {
-          await vaultService.getVaults()
-        } catch (error) {
-
-        }
-        try {
-          await keepService.getMyKeeps()
-        } catch (error) {
-          logger.log(error)
+      async getVaultsFirst() {
+        if (state.vaults === undefined) {
+          await vaultService.getVaults(state.account.id)
         }
       }
+
     }
   },
   components: {}
@@ -54,8 +49,11 @@ export default {
 <style
     QuickModal1 lang="scss" scoped>
 .card-columns {
-    column-count: 4;
-
+  @media(min-width: 565px) and (max-width: 767.98px) {
+    column-count: 2;
   }
-
+  @media (min-width: 992px)  {
+    column-count: 4;
+  }
+  }
 </style>

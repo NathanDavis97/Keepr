@@ -41,9 +41,9 @@ namespace keepr.Repositories
     {
       string sql = @"
         Insert Into Vaults
-        (name, isPrivate, creatorId)
+        (name, isPrivate, creatorId, description)
         Values
-        (@Name, @IsPrivate, @CreatorId);
+        (@Name, @IsPrivate, @CreatorId, @Description);
         SELECT LAST_INSERT_ID();";
       return _db.ExecuteScalar<int>(sql, vaultData);
     }
@@ -54,6 +54,7 @@ namespace keepr.Repositories
         UPDATE vaults
         SET
         name = @Name,
+        description = @Description,
         isPrivate = @IsPrivate
         WHERE id = @Id;";
       _db.Execute(sql, editData);
@@ -70,12 +71,11 @@ namespace keepr.Repositories
     internal IEnumerable<Vault> GetVaultsByProfileId(string profileId)
     {
       string sql = @"
-      select vault.*,
-      prof.id as ProfileId
-      FROM profiles prof
-      JOIN vaults vault on vault.creatorId = prof.id
-      WHERE creatorId = @ProfileId";
-      return _db.Query<ProfileVaultViewModel>(sql, new { profileId });
-    }
+      SELECT vault.*,
+      profile.*
+      FROM profiles profile
+      JOIN vaults vault on vault.creatorId = profile.id
+      WHERE vault.creatorId = @ProfileId";
+return _db.Query<Vault, Profile, Vault>(sql, (vault, profile) => { vault.Creator = profile; return vault; }, new { profileId }, splitOn: "id");    }
   }
 }
