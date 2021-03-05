@@ -47,15 +47,26 @@ namespace keepr.Services
         editData.Name = editData != null ? editData.Name: Original.Name ;
         editData.Description = editData != null ? editData.Description : Original.Description;
         editData.Img = editData != null ? editData.Img : Original.Img;
+        editData.Views =  Original.Views;
+        editData.Keeps =  Original.Keeps;
       }else
       {
 
-        editData.Views = editData.Views != 0 ? Original.Views++ : Original.Views;
-        editData.Keeps = editData.Keeps != 0 ? Original.Keeps++ : Original.Keeps;
        throw new Exception("Access Denied");
 
       }
       return _krepo.edit(editData);
+
+    }
+    internal Keep EditValues(Keep editData)
+    {
+      Keep Original = GetById(editData.Id);
+        editData.Name = Original.Name ;
+        editData.Description = Original.Description;
+        editData.Img = Original.Img;
+        editData.Views = editData.Views != 0 ? Original.Views + 1 : Original.Views;
+        editData.Keeps = editData.Keeps != 0 ? Original.Keeps + 1 : Original.Keeps;
+        return _krepo.edit(editData);
 
     }
 

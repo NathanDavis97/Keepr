@@ -1,8 +1,8 @@
 <template>
   <div class="about text-center container-fluid">
-    <div class="row">
-      <div class="col-3">
-        <img class="rounded" :src="account.picture" alt="" />
+    <div class="row mt-4">
+      <div class="col-2">
+        <img class="rounded shadow" :src="account.picture" alt="" />
       </div>
       <div class="col-3">
         <h1>{{ account.name }}</h1>
@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col nomargpad">
         <div class="row">
           <div class="col">
             <h4>
@@ -24,20 +24,20 @@
             </h4>
           </div>
         </div>
-        <div class=" card-columns mt-3">
+        <div class=" card-columns mt-3 nomargpad">
           <VaultComponent v-for="vault in state.vaults" :key="vault.id" :vault-prop="vault" />
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col nopad">
         <div class="row">
-          <div class="col">
+          <div class="col nopad">
             <h4>Keeps <i class="fa fa-plus text-success" aria-hidden="true" type="button" data-toggle="modal" data-target="#keepModal"></i></h4>
           </div>
         </div>
         <div class="row">
-          <div class="card-columns mt-3">
+          <div class="card-columns mt-3 nomargpad">
             <KeepComponent v-for="keep in state.myKeeps" :key="keep.id" :keep-prop="keep" />
           </div>
         </div>
@@ -88,10 +88,10 @@ img {
   max-width: 100px;
 }
 .card-columns {
-  @media (min-width: 565px) and (max-width: 767.98px) {
+  @media (min-width: 300px) and (max-width: 991.98px) {
     column-count: 2;
   }
-  @media (min-width: 900px)  {
+  @media (min-width: 992px)  {
     column-count: 4;
   }
   }

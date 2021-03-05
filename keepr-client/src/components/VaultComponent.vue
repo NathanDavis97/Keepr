@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid  mt-2" @click="getActiveVault(vaultProp.id)">
+  <div class="container-fluid  nomargpad" @click="getActiveVault(vaultProp.id)">
     <router-link :to="{name: 'ActiveVault', params: {id: state.thisvault.id}} ">
-      <div class="vaultComponent col ">
+      <div class="vaultComponent col nomargpad">
         <div class="card img-fluid size">
           <img :src="vaultProp.img" alt="" class="card-img rounded">
           <div class="  card-img-overlay align-items-end row nomargpad ">

@@ -4,7 +4,7 @@
       <div class="d-flex flex-column align-items-center">
         <img
           alt="logo"
-          src="../assets/img/cw-logo.png"
+          src="../assets/img/keepr.png"
           height="45"
         />
       </div>
@@ -18,18 +18,13 @@
       aria-expanded="false"
       aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon" />
+      <span class="navbar-toggler-icon "> <i class="fa fa-user-circle-o" aria-hidden="true"></i></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link :to="{ name: 'Home' }" class="nav-link">
             Home
-          </router-link>
-        </li>
-        <li class="nav-item">
-          <router-link :to="{ name: 'About' }" class="nav-link">
-            About
           </router-link>
         </li>
       </ul>
@@ -56,7 +51,7 @@
             <span class="mx-3">{{ user.name }}</span>
           </div>
           <div
-            class="dropdown-menu p-0 list-group w-100"
+            class="dropdown-menu p-0 list-group w-100 "
             :class="{ show: state.dropOpen }"
             @click="state.dropOpen = false"
           >
@@ -122,9 +117,10 @@ a:hover {
   text-transform: uppercase;
 }
 .nav-item .nav-link.router-link-exact-active{
-  color: var(--primary);
+  color: var(--dark);
 }
 .kgreen{
   background-color:#55efc4 ;
 }
+
 </style>

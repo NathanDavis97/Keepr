@@ -15,12 +15,26 @@ class KeepService {
     logger.log(AppState.profileKeeps, 'mykeeps')
   }
 
+  async editViews(keep) {
+    keep.views++
+    const res = await api.put('keeps/' + keep.id + '/edit', keep)
+    logger.log(res.data)
+    return res.data
+  }
+
+  async editKeepCount(keep) {
+    keep.keeps++
+    const res = await api.put('keeps/' + keep.id + '/edit', keep)
+    logger.log(res.data)
+    return res.data
+  }
+
   async createKeep(newKeep) {
     logger.log(newKeep)
     newKeep.creatorId = AppState.account.id
     const res = await api.post('keeps', newKeep)
     logger.log(res, 'new keep')
-    this.getKeeps()
+    this.getProfileKeeps(AppState.account.id)
   }
 
   async deleteKeep(keepId) {

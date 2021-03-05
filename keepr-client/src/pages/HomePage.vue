@@ -49,7 +49,7 @@ export default {
 <style
     QuickModal1 lang="scss" scoped>
 .card-columns {
-  @media(min-width: 565px) and (max-width: 767.98px) {
+  @media(min-width: 300px) and (max-width: 991.98px) {
     column-count: 2;
   }
   @media (min-width: 992px)  {

@@ -6,9 +6,9 @@
         <i v-if="state.activeVault.creatorId == state.myId" class="fa fa-trash text-danger btn " aria-hidden="true" @click="DeleteVault(state.activeVault.id)"></i>
       </h4>
       <h6 class="col offset-2 mt-2">
-        <button type="button" class="btn btn-warning " @click="state.removable = !state.removable">
+        <!-- <button type="button" class="btn btn-warning " @click="state.removable = !state.removable">
           Edit Vault
-        </button>
+        </button> -->
       </h6>
     </div>
     <div class="row">
@@ -17,7 +17,7 @@
       </h6>
     </div>
     <div class="card-columns mt-3">
-      <KeepComponent v-for="keep in state.keeps" :key="keep.id" :keep-prop="keep" @click="deleteFromVault(keep.vaultKeepId, state.activeVault.Id)" />
+      <KeepComponent v-for="keep in state.keeps" :key="keep.id" :keep-prop="keep" />
     </div>
   </div>
 </template>
@@ -28,7 +28,9 @@ import { AppState } from '../AppState'
 import { vaultService } from '../services/VaultService'
 import { logger } from '../utils/Logger'
 import { useRoute, useRouter } from 'vue-router'
-import { vaultKeepService } from '../services/VaultKeepService'
+// import { vaultKeepService } from '../services/VaultKeepService'
+// import $ from 'jquery'
+
 export default {
   name: 'ActiveVaultPage',
   setup() {
@@ -66,18 +68,8 @@ export default {
             logger.error(error)
           }
         }
-      },
-      async deleteFromVault(vaultKeepId) {
-        if (state.removable) {
-          try {
-            logger.log(vaultKeepId)
-            await vaultKeepService.deleteVaultKeep(vaultKeepId)
-            await vaultService.getVaultKeeps(route.params.id)
-          } catch (error) {
-            logger.error(error)
-          }
-        }
       }
+
     }
   }
 }

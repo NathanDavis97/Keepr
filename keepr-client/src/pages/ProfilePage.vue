@@ -1,7 +1,7 @@
 <template>
   <div class="about text-center container-fluid">
-    <div class="row">
-      <div class="col-3">
+    <div class="row mt-4">
+      <div class="col-2">
         <img class="rounded" :src="state.profile.picture" alt="" />
       </div>
       <div class="col-3">
