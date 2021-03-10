@@ -31,7 +31,6 @@ class VaultService {
   }
 
   async deleteVault(vaultId) {
-    console.log(vaultId, vaultId)
     const res = await api.delete('vaults/' + vaultId)
     return (res, 'succefully deleted')
   }

@@ -38,8 +38,6 @@ class KeepService {
   }
 
   async deleteKeep(keepId) {
-    console.log(keepId, keepId)
-    debugger
     const res = await api.delete('keeps/' + keepId)
     return (res, 'succefully deleted')
   }
