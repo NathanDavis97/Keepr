@@ -166,6 +166,7 @@ export default {
         if (window.confirm('Are you sure you would like to delete?')) {
           try {
             await keepService.deleteKeep(keepId)
+            $('#' + props.keepProp.id + '').modal('hide')
           } catch (error) {
             logger.error(error)
           }

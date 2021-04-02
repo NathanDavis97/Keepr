@@ -39,6 +39,7 @@ class KeepService {
 
   async deleteKeep(keepId) {
     const res = await api.delete('keeps/' + keepId)
+    this.getProfileKeeps(AppState.account.id)
     return (res, 'succefully deleted')
   }
 }
